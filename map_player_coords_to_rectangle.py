@@ -7,7 +7,7 @@ import numpy as np
 
 # get coords of detected players
 player_coords_file = 'output/player_coords.txt'
-player_coords_file = 'output/test.txt'
+#player_coords_file = 'output/test.txt'
 coords = read_coords(player_coords_file)
 coords = np.reshape(coords , (-1,3))
 
