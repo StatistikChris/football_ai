@@ -1,6 +1,8 @@
 ## Hello and welcome to the football_ai code.
 
-1. In order to run the code install all modules in the requirements.txt
+0. In order to run the code install all modules in the requirements.txt
+
+1. Run the capture_video_frames.py script to catch some frames from the video. In the current status it only captures three frames to keep the data tiny.
 
 2. Then run the player_detection.py script to create a file which contains player coords.
 
