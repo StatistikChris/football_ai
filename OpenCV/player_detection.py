@@ -59,13 +59,15 @@ with open(output_file,'w+') as file:
 			x,y,w,h = cv2.boundingRect(c)
 
 			#Detect players
-			if(h>=(1.5)*w):
-				if(w>15 and h>= 15):
+			ratio = 1
+			min_size = 10
+			if(h>=(ratio)*w):
+				if(w>min_size and h>= min_size):
 					idx += 1
 					player_img = image[y:y+h,x:x+w]
 					player_hsv = cv2.cvtColor(player_img,cv2.COLOR_BGR2HSV)
-					#If player has blue jersy
-					mask1 = cv2.inRange(player_hsv, lower_blue, upper_blue)
+					#If player has white jersy
+					mask1 = cv2.inRange(player_hsv, lower_white, upper_white)
 					res1 = cv2.bitwise_and(player_img, player_img, mask=mask1)
 					res1 = cv2.cvtColor(res1,cv2.COLOR_HSV2BGR)
 					res1 = cv2.cvtColor(res1,cv2.COLOR_BGR2GRAY)
@@ -83,16 +85,18 @@ with open(output_file,'w+') as file:
 					#coord_list.append([count,x+w,y])
 
 
-					if(nzCount >= 20):
-						#Mark blue jersy players as france
-						cv2.putText(image, 'France', (x-2, y-2), font, 0.8, (255,0,0), 2, cv2.LINE_AA)
+					if(nzCount >= 2):
+						#Mark white jersy players as Argentina
+						cv2.putText(image, 'Argentina', (x-2, y-2), font, 0.8, (255,0,0), 2, cv2.LINE_AA)
 						cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),3)
 					else:
 						pass
 					if(nzCountred>=20):
+						pass
+
 						#Mark red jersy players as belgium
-						cv2.putText(image, 'Belgium', (x-2, y-2), font, 0.8, (0,0,255), 2, cv2.LINE_AA)
-						cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),3)
+						#cv2.putText(image, 'Belgium', (x-2, y-2), font, 0.8, (0,0,255), 2, cv2.LINE_AA)
+						#cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),3)
 					else:
 						pass
 			if((h>=1 and w>=1) and (h<=30 and w<=30)):
@@ -107,10 +111,10 @@ with open(output_file,'w+') as file:
 				nzCount = cv2.countNonZero(res1)
 
 
-				if(nzCount >= 3):
-					# detect football
-					cv2.putText(image, 'football', (x-2, y-2), font, 0.8, (0,255,0), 2, cv2.LINE_AA)
-					cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),3)
+				#if(nzCount >= 3):
+				#	# detect football
+				#	cv2.putText(image, 'football', (x-2, y-2), font, 0.8, (0,255,0), 2, cv2.LINE_AA)
+				#	cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),3)
 
 		# write coords to txt
 		#file.write(str(coord_list))
