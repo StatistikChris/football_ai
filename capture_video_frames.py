@@ -7,7 +7,7 @@ vidcap = cv2.VideoCapture(video_filename)
 success,image = vidcap.read()
 
 count = 0
-while success:
+#while success:
 while count < 3:
   cv2.imwrite('video_output/frame%d.jpg' % count, image)     # save frame as JPEG file
   success,image = vidcap.read()
